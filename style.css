@@ -1,105 +1,120 @@
 body {
-  font-family: 'Poppins', sans-serif; 
-  background-color: #f8f7f4; 
-  color: #333; 
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f7f4;
+    color: #333;
 }
 
 .widget {
-  background-color: rgba(255, 255, 255, 0.75); 
-  backdrop-filter: blur(25px); 
-  -webkit-backdrop-filter: blur(25px); 
-  border: 1px solid rgba(0, 0, 0, 0.07); 
-  border-radius: 2rem; 
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 2rem;
 }
 
 .chart-container {
-  position: relative; 
-  width: 100%; 
-  height: 300px; 
-  max-height: 400px; 
-  max-width: 600px; 
-  margin-left: auto; 
-  margin-right: auto; 
+    position: relative;
+    width: 100%;
+    height: 300px;
+    max-height: 400px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media (min-width: 768px) {
-  .chart-container {
-    height: 350px; 
-  }
+    .chart-container {
+        height: 350px;
+    }
 }
 
 .sticky-header {
-  background-color: rgba(248, 247, 244, 0.85); 
-  backdrop-filter: blur(20px); 
-  -webkit-backdrop-filter: blur(20px); 
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+    background-color: rgba(248, 247, 244, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.accent-color { color: #007AFF; }
-.accent-bg { background-color: #007AFF; } 
+.accent-color { 
+    color: #007AFF; 
+}
+
+.accent-bg { 
+    background-color: #007AFF; 
+}
 
 .calculator-input, .ai-input {
-  background-color: rgba(0,0,0,0.05); 
-  border: 1px solid rgba(0,0,0,0.1); 
-  border-radius: 0.75rem; 
-  padding: 0.75rem 1rem; 
-  color: #1d1d1f; 
-  font-weight: 500; 
-  width: 100%; 
-  transition: border-color 0.3s, background-color 0.3s; 
+    background-color: rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: #1d1d1f;
+    font-weight: 500;
+    width: 100%;
+    transition: border-color 0.3s, background-color 0.3s;
 }
 
 .calculator-input:focus, .ai-input:focus {
-  outline: none; 
-  border-color: #007AFF; 
-  background-color: rgba(0, 122, 255, 0.08); 
+    outline: none;
+    border-color: #007AFF;
+    background-color: rgba(0, 122, 255, 0.08);
 }
 
 .calculator-output {
-  font-size: 1.875rem; 
-  font-weight: 700; 
-  padding: 0.5rem 0; 
+    font-size: 1.875rem;
+    font-weight: 700;
+    padding: 0.5rem 0;
 }
 
 input[type="range"] {
-  -webkit-appearance: none; appearance: none; 
-  width: 100%; height: 8px; background: #e0e0e0; 
-  border-radius: 5px; outline: none; 
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    outline: none;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none; appearance: none; 
-  width: 20px; height: 20px; background: #007AFF; 
-  cursor: pointer; border-radius: 50%; 
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #007AFF;
+    cursor: pointer;
+    border-radius: 50%;
 }
 
 #ai-analysis-output.prose {
-  max-width: none; 
-  color: #333; 
+    max-width: none;
+    color: #333;
 }
 
 #ai-analysis-output.prose h3 {
-  color: #007AFF; 
-  margin-bottom: 0.5em; 
+    color: #007AFF;
+    margin-bottom: 0.5em;
 }
 
-#ai-analysis-output.prose p, #ai-analysis-output.prose li {
-  font-size: 0.9rem; 
+#ai-analysis-output.prose p, 
+#ai-analysis-output.prose li {
+    font-size: 0.9rem;
 }
 
 #ai-analysis-output.prose strong {
-  color: #1d1d1f; 
+    color: #1d1d1f;
 }
 
-main > .content-section {
-  display: none; 
+/* Logika untuk menyembunyikan/menampilkan tab */
+.content-section {
+    display: none;
 }
 
-main > .content-section.active {
-  display: block; 
+.content-section.active {
+    display: block;
 }
 
 header nav a.active {
-  color: #007AFF; 
-  font-weight: 700; 
+    color: #007AFF;
+    font-weight: 700;
 }
