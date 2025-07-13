@@ -1,97 +1,120 @@
-import { marked } from 'marked';
-import { GoogleGenerativeAI as GoogleGenAI } from '@google/genai';
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f7f4;
+    color: #333;
+}
 
-// --- BAGIAN INI SUDAH DIPERBAIKI ---
-const API_KEY = "AIzaSyDkAVtL00WxWCslXTONGyjpvLNUgySHg64";
+.widget {
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 2rem;
+}
 
-document.addEventListener('DOMContentLoaded', function() {
-    const chartColors = {
-        accent: '#007AFF', accentLight: 'rgba(0, 122, 255, 0.2)', text: '#333',
-        grid: 'rgba(0, 0, 0, 0.05)', green: '#34C759', orange: '#FF9500',
-        purple: '#AF52DE', gray: '#8E8E93', red: '#FF3B30', yellow: '#FFCC00'
-    };
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    max-height: 400px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-    Chart.defaults.font.family = "'Poppins', sans-serif";
-    Chart.defaults.color = chartColors.text;
-
-    // === NAVIGASI TAB ===
-    const navLinks = document.querySelectorAll('.nav-link');
-    const contentSections = document.querySelectorAll('.content-section');
-
-    function activateTab(targetId) {
-        navLinks.forEach(link => link.classList.remove('active'));
-        contentSections.forEach(section => section.classList.remove('active'));
-
-        const activeLink = document.querySelector(`.nav-link[href="#${targetId}"]`);
-        const activeSection = document.getElementById(targetId);
-
-        if (activeLink) activeLink.classList.add('active');
-        if (activeSection) activeSection.classList.add('active');
+@media (min-width: 768px) {
+    .chart-container {
+        height: 350px;
     }
+}
 
-    document.getElementById('nav-links').addEventListener('click', function(e) {
-        if (e.target.classList.contains('nav-link')) {
-            e.preventDefault();
-            const targetId = e.target.getAttribute('href').substring(1);
-            activateTab(targetId);
-        }
-    });
+.sticky-header {
+    background-color: rgba(248, 247, 244, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
 
-    // Anda perlu memasukkan kembali kode untuk inisialisasi Chart.js di sini
-    // dan juga logika untuk kalkulator dari file asli Anda.
+.accent-color { 
+    color: #007AFF; 
+}
 
-    // === AI ANALYST SCRIPT ===
-    const analyzeButton = document.getElementById('analyze-button');
-    const outputDiv = document.getElementById('ai-analysis-output');
+.accent-bg { 
+    background-color: #007AFF; 
+}
 
-    if (analyzeButton) {
-        analyzeButton.addEventListener('click', async () => {
-            if (!API_KEY || API_KEY.includes("GANTI_DENGAN")) { // Pengecekan lebih baik
-                outputDiv.innerHTML = `<p class="text-red-500 font-bold">Error: API KEY tidak dikonfigurasi. Harap masukkan kunci yang valid.</p>`;
-                return;
-            }
+.calculator-input, .ai-input {
+    background-color: rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: #1d1d1f;
+    font-weight: 500;
+    width: 100%;
+    transition: border-color 0.3s, background-color 0.3s;
+}
 
-            const namaProduk = document.getElementById('ai-nama-produk').value;
-            // Pastikan Anda mendefinisikan variabel-variabel ini
-            const hargaJual = document.getElementById('ai-harga-jual').value;
-            const terjualBulanan = document.getElementById('ai-terjual-bulanan').value;
-            const hpp = document.getElementById('ai-hpp').value;
-            const biayaLain = document.getElementById('ai-biaya-lain').value;
-            const strategi = document.getElementById('ai-strategi').value;
+.calculator-input:focus, .ai-input:focus {
+    outline: none;
+    border-color: #007AFF;
+    background-color: rgba(0, 122, 255, 0.08);
+}
 
-            if (!namaProduk || !hargaJual || !terjualBulanan || !hpp || !biayaLain) {
-                outputDiv.innerHTML = `<p class="text-orange-500 font-bold">Harap isi semua kolom data produk untuk analisis yang akurat.</p>`;
-                return;
-            }
+.calculator-output {
+    font-size: 1.875rem;
+    font-weight: 700;
+    padding: 0.5rem 0;
+}
 
-            outputDiv.innerHTML = `<p class="text-gray-500 animate-pulse">Menganalisis data dengan AI... Ini mungkin membutuhkan beberapa saat.</p>`;
-            analyzeButton.disabled = true;
-            analyzeButton.classList.add('opacity-50', 'cursor-not-allowed');
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    outline: none;
+}
 
-            const prompt = `Anda adalah seorang analis bisnis e-commerce ahli di Indonesia... (salin sisa prompt lengkap Anda di sini)`;
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #007AFF;
+    cursor: pointer;
+    border-radius: 50%;
+}
 
-            try {
-                const ai = new GoogleGenAI(API_KEY);
-                const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
-                const result = await model.generateContent(prompt);
-                const response = await result.response;
-                const text = response.text();
+#ai-analysis-output.prose {
+    max-width: none;
+    color: #333;
+}
 
-                if (text) {
-                    outputDiv.innerHTML = await marked.parse(text);
-                } else {
-                    outputDiv.innerHTML = `<p class="text-orange-500 font-bold">AI tidak memberikan respons. Coba lagi.</p>`;
-                }
-            } catch (err) {
-                console.error("AI Analysis Failed:", err);
-                outputDiv.innerHTML = `<p class="text-red-500 font-bold">Gagal menghubungi AI. Periksa konsol browser untuk detail error dan pastikan API Key Anda valid.</p>`;
-            } finally {
-                analyzeButton.disabled = false;
-                analyzeButton.classList.remove('opacity-50', 'cursor-not-allowed');
-            }
-        });
-    }
-    
-    // Pastikan fungsi calculateAll() dari file asli Anda ada di sini dan dipanggil
-    // calculateAll(); 
-});
+#ai-analysis-output.prose h3 {
+    color: #007AFF;
+    margin-bottom: 0.5em;
+}
+
+#ai-analysis-output.prose p, 
+#ai-analysis-output.prose li {
+    font-size: 0.9rem;
+}
+
+#ai-analysis-output.prose strong {
+    color: #1d1d1f;
+}
+
+/* Logika untuk menyembunyikan/menampilkan tab */
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+header nav a.active {
+    color: #007AFF;
+    font-weight: 700;
+}
