@@ -1,8 +1,30 @@
 import { marked } from 'marked';
 import { GoogleGenerativeAI } from '@google/genai';
 
-// --- API Key Anda sudah dimasukkan di sini ---
+// --- KUNCI API ANDA SUDAH DIMASUKKAN DI SINI ---
 const API_KEY = "AIzaSyDkAVtL00WxWCslXTONGyjpvLNUgySHg64";
+
+// Fungsi untuk format angka dengan titik ribuan
+function formatRupiah(angka) {
+    if (angka === null || angka === undefined || angka === '') return '';
+    let number_string = angka.toString().replace(/[^,\d]/g, ''),
+        split = number_string.split(','),
+        sisa = split[0].length % 3,
+        rupiah = split[0].substr(0, sisa),
+        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+        let separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+    return rupiah;
+}
+
+// Fungsi untuk menghapus format titik dari angka
+function unformatRupiah(rupiah_string) {
+    if (!rupiah_string || typeof rupiah_string !== 'string') return 0;
+    return parseFloat(rupiah_string.replace(/\./g, ''));
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const chartColors = {
@@ -45,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         activateTab('landscape');
     }
 
-    // --- INISIALISASI GRAFIK ---
+    // --- INISIALISASI SEMUA GRAFIK ---
     new Chart(document.getElementById('gmvChart'), {
         type: 'line',
         data: {
@@ -68,19 +90,82 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         options: { maintainAspectRatio: false, responsive: true, plugins: { legend: { display: true, position: 'bottom', labels: { padding: 15 } } } }
     });
+    
+    let budgetChart;
+    function updateBudgetChart() {
+        const budget = unformatRupiah(document.getElementById('marketingBudget').value) || 0;
+        const allocations = { video: budget * 0.4, kol: budget * 0.3, promo: budget * 0.2, other: budget * 0.1 };
+        const budgetChartEl = document.getElementById('budgetChart');
+        if (!budgetChartEl) return;
+        if (budgetChart) {
+            budgetChart.data.datasets[0].data = Object.values(allocations);
+            budgetChart.update();
+        } else {
+            budgetChart = new Chart(budgetChartEl, {
+                type: 'pie',
+                data: {
+                    labels: ['Video Content & Ads', 'KOL & Afiliasi', 'Promosi & Diskon', 'Lainnya'],
+                    datasets: [{ data: Object.values(allocations), backgroundColor: [chartColors.accent, chartColors.green, chartColors.orange, chartColors.gray] }]
+                },
+                options: { maintainAspectRatio: false, responsive: true, plugins: { legend: { display: true, position: 'bottom' } } }
+            });
+        }
+    }
+    const marketingBudgetEl = document.getElementById('marketingBudget');
+    if(marketingBudgetEl) { marketingBudgetEl.addEventListener('input', updateBudgetChart); }
+    updateBudgetChart();
+
+    new Chart(document.getElementById('sentimentChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Harga', 'Kualitas', 'Keaslian', 'Pengiriman'],
+            datasets: [
+                { label: 'Positif', data: [40, 75, 85, 55], backgroundColor: chartColors.green },
+                { label: 'Netral', data: [30, 15, 10, 20], backgroundColor: chartColors.gray },
+                { label: 'Negatif', data: [30, 10, 5, 25], backgroundColor: chartColors.red },
+            ]
+        },
+        options: { maintainAspectRatio: false, responsive: true, scales: { x: { stacked: true }, y: { stacked: true } }, plugins: { legend: { display: false } } }
+    });
+    
+    const competitorData = [
+        { x: 3, y: 3, label: 'Hanasui', info: '<strong>Hanasui:</strong> Pemain volume dengan harga sangat kompetitif. Kuat di segmen pemula.' },
+        { x: 5, y: 6, label: 'Wardah', info: '<strong>Wardah:</strong> Brand lokal raksasa dengan kepercayaan tinggi dan jangkauan luas. Harga terjangkau dengan kualitas terjamin.' },
+        { x: 6, y: 5, label: 'Glad2Glow', info: '<strong>Glad2Glow:</strong> Viral di TikTok dengan harga agresif dan kemasan menarik. Fokus pada tren.' },
+        { x: 8, y: 8, label: 'Skintific', info: '<strong>Skintific:</strong> Pemimpin pasar dengan fokus pada formulasi berbasis sains dan branding premium (masstige).' }
+    ];
+    new Chart(document.getElementById('competitorMap'), {
+        type: 'scatter',
+        data: {
+            datasets: [{ label: 'Kompetitor Skincare', data: competitorData, backgroundColor: chartColors.accent, pointRadius: 8, pointHoverRadius: 10 }]
+        },
+        options: {
+            maintainAspectRatio: false, responsive: true,
+            scales: {
+                x: { title: { display: true, text: 'Harga (Relatif Rendah ke Tinggi)' } },
+                y: { title: { display: true, text: 'Kualitas & Inovasi (Persepsi)' } }
+            },
+             plugins: { legend: { display: false } },
+            onClick: (e, elements) => {
+                if (elements.length > 0) {
+                    document.getElementById('competitorInfo').innerHTML = competitorData[elements[0].index].info;
+                }
+            }
+        }
+    });
 
     // --- LOGIKA KALKULATOR & LAB STRATEGI ---
     const labSection = document.getElementById('lab');
     const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 });
 
     function calculateAll() {
-        const hargaJual = parseFloat(document.getElementById('hargaJual').value) || 0;
-        const hpp = parseFloat(document.getElementById('hpp').value) || 0;
-        const biayaIklan = parseFloat(document.getElementById('biayaIklan').value) || 0;
+        const hargaJual = unformatRupiah(document.getElementById('hargaJual').value);
+        const hpp = unformatRupiah(document.getElementById('hpp').value);
+        const biayaIklan = unformatRupiah(document.getElementById('biayaIklan').value);
+        const fixedCosts = unformatRupiah(document.getElementById('fixedCosts').value);
+        const avgPurchaseValue = unformatRupiah(document.getElementById('avgPurchaseValue').value);
         const biayaPlatformPersen = parseFloat(document.getElementById('biayaPlatform').value) || 0;
-        const fixedCosts = parseFloat(document.getElementById('fixedCosts').value) || 0;
         const avgSales = parseFloat(document.getElementById('avgSales').value) || 0;
-        const avgPurchaseValue = parseFloat(document.getElementById('avgPurchaseValue').value) || 0;
         const purchaseFrequency = parseFloat(document.getElementById('purchaseFrequency').value) || 0;
         const customerLifespan = parseFloat(document.getElementById('customerLifespan').value) || 0;
         
@@ -99,7 +184,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('bepResult').innerHTML = `Anda perlu menjual <span class="text-2xl accent-color">${bepUnits.toLocaleString('id-ID')}</span> unit/bulan untuk BEP.`;
         document.getElementById('revenueResult').innerHTML = `Proyeksi Pendapatan Tahunan: <br><span class="text-2xl accent-color">${formatter.format(annualRevenue)}</span>`;
         document.getElementById('ltvResult').innerHTML = `Estimasi LTV per Pelanggan: <br><span class="text-2xl accent-color">${formatter.format(ltv)}</span>`;
-        
         document.getElementById('finalRevenue').textContent = formatter.format(annualRevenue);
         document.getElementById('finalProfit').textContent = formatter.format(annualProfit);
         document.getElementById('finalROAS').textContent = `${roas.toFixed(2)}x`;
@@ -107,19 +191,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const verdictEl = document.getElementById('strategicVerdict');
         if (netMargin > 20 && roas > 5) {
-            verdictEl.innerHTML = `<strong class="text-green-600">Sangat Solid.</strong> Profitabilitas sehat dan ROAS kuat. Ini adalah rencana untuk dominasi pasar. Fokus sekarang adalah eksekusi tanpa cela dan skalabilitas.`;
+            verdictEl.innerHTML = `<strong class="text-green-600">Sangat Solid.</strong> Profitabilitas sehat dan ROAS kuat. Ini adalah rencana untuk dominasi pasar.`;
         } else if (netMargin > 10 && roas > 3) {
-            verdictEl.innerHTML = `<strong class="text-yellow-600">Potensial.</strong> Model bisnis ini bisa berjalan, tapi bocor di beberapa sisi. Optimalkan biaya iklan dan operasional sekarang juga untuk mengubah potensi menjadi profit nyata.`;
+            verdictEl.innerHTML = `<strong class="text-yellow-600">Potensial.</strong> Model bisnis ini bisa berjalan, tapi perlu optimalisasi biaya iklan dan operasional.`;
         } else if (annualRevenue > 0) {
-            verdictEl.innerHTML = `<strong class="text-red-600">Peringatan Kritis.</strong> Ini bukan bisnis, ini kegiatan bakar uang. Margin tipis dan ROAS rendah adalah resep menuju kebangkrutan. Bongkar total struktur harga dan biaya Anda. Segera.`;
+            verdictEl.innerHTML = `<strong class="text-red-600">Peringatan Kritis.</strong> Margin tipis dan ROAS rendah, ini adalah resep bakar uang. Bongkar total struktur harga dan biaya Anda.`;
         } else {
-            verdictEl.innerHTML = `Masukkan data di Laboratorium Strategi untuk melihat analisis akhir. Rencana Anda akan dievaluasi di sini berdasarkan potensi profitabilitas, skalabilitas, dan efisiensi pemasaran.`;
+            verdictEl.innerHTML = `Masukkan data di Laboratorium Strategi untuk melihat analisis akhir.`;
         }
     }
     
-    if (labSection) {
-        labSection.addEventListener('input', calculateAll);
-    }
+    const rupiahInputs = ['hargaJual', 'hpp', 'biayaIklan', 'fixedCosts', 'avgPurchaseValue', 'marketingBudget', 'ai-harga-jual', 'ai-hpp', 'ai-biaya-lain'];
+    rupiahInputs.forEach(id => {
+        const inputElement = document.getElementById(id);
+        if (inputElement) {
+            inputElement.addEventListener('keyup', function(e) { this.value = formatRupiah(this.value); });
+        }
+    });
+
+    if (labSection) { labSection.addEventListener('input', calculateAll); }
     
     const businessModelForm = document.getElementById('businessModelForm');
     if (businessModelForm) {
@@ -145,8 +235,17 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('opportunityResult').textContent = `${score * 10}/100`;
         });
     }
-
-    // (Kode lain untuk chart dan checklist ada di sini...)
+    
+    const checklist = document.getElementById('readinessChecklist');
+    if (checklist) {
+        checklist.addEventListener('change', () => {
+            const checkboxes = checklist.querySelectorAll('input[type="checkbox"]');
+            const checked = checklist.querySelectorAll('input[type="checkbox"]:checked');
+            const percentage = (checked.length / checkboxes.length) * 100;
+            document.getElementById('readinessProgress').style.width = `${percentage}%`;
+            document.getElementById('readinessText').textContent = `Tingkat Kesiapan: ${Math.round(percentage)}%`;
+        });
+    }
 
     calculateAll();
 
@@ -155,47 +254,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const outputDiv = document.getElementById('ai-analysis-output');
     if (analyzeButton) {
         analyzeButton.addEventListener('click', async () => {
-            if (!API_KEY || API_KEY === "GANTI_DENGAN_API_KEY_ASLI_ANDA") {
-                outputDiv.innerHTML = `<p class="text-red-500 font-bold">Error: API_KEY tidak dikonfigurasi. Harap masukkan API Key Anda yang valid di dalam kode.</p>`;
+            if (!API_KEY || API_KEY.includes("GANTI_DENGAN")) {
+                outputDiv.innerHTML = `<p class="text-red-500 font-bold">Error: API Key tidak dimasukkan dengan benar.</p>`;
                 return;
             }
             const namaProduk = document.getElementById('ai-nama-produk').value;
-            const hargaJual = document.getElementById('ai-harga-jual').value;
-            const terjualBulanan = document.getElementById('ai-terjual-bulanan').value;
-            const hpp = document.getElementById('ai-hpp').value;
-            const biayaLain = document.getElementById('ai-biaya-lain').value;
+            const hargaJual = unformatRupiah(document.getElementById('ai-harga-jual').value);
+            const terjualBulanan = parseFloat(document.getElementById('ai-terjual-bulanan').value);
+            const hpp = unformatRupiah(document.getElementById('ai-hpp').value);
+            const biayaLain = unformatRupiah(document.getElementById('ai-biaya-lain').value);
             const strategi = document.getElementById('ai-strategi').value;
             if (!namaProduk || !hargaJual || !terjualBulanan || !hpp || !biayaLain) {
-                outputDiv.innerHTML = `<p class="text-orange-500 font-bold">Harap isi semua kolom data produk untuk analisis yang akurat.</p>`;
+                outputDiv.innerHTML = `<p class="text-orange-500 font-bold">Harap isi semua kolom data produk.</p>`;
                 return;
             }
-            outputDiv.innerHTML = `<p class="text-gray-500 animate-pulse">Menganalisis data dengan AI... Ini mungkin membutuhkan beberapa saat.</p>`;
+            outputDiv.innerHTML = `<p class="text-gray-500 animate-pulse">Menganalisis data dengan AI...</p>`;
             analyzeButton.disabled = true;
             analyzeButton.classList.add('opacity-50', 'cursor-not-allowed');
+            
             const prompt = `
-            Anda adalah seorang analis bisnis e-commerce ahli di Indonesia. Analisis Anda tajam, berdasarkan data, dan menggunakan terminologi bisnis digital yang umum di Indonesia. Jangan mengarang, berikan analisis logis berdasarkan data yang diberikan.
-            Berikut adalah data dari produk yang dijual di marketplace Indonesia:
-            - Nama Produk: ${namaProduk}
-            - Harga Jual: Rp ${parseFloat(hargaJual).toLocaleString('id-ID')}
-            - Jumlah Terjual per bulan: ${parseFloat(terjualBulanan).toLocaleString('id-ID')} unit
-            - Biaya Produksi per unit (HPP): Rp ${parseFloat(hpp).toLocaleString('id-ID')}
-            - Biaya Lain per unit (Logistik, Admin, Iklan): Rp ${parseFloat(biayaLain).toLocaleString('id-ID')}
-            - Strategi Marketing yang digunakan seller: ${strategi || "Tidak disebutkan"}
-            TOLONG BUAT LAPORAN ANALISIS MENDALAM:
-            1.  **Analisis Profitabilitas:**
-                * Hitung **Total Omset Kotor** per bulan.
-                * Hitung **Total Biaya Operasional** per bulan (produksi + biaya lain).
-                * Hitung **Estimasi Profit Bersih** per bulan.
-                * Hitung **Net Profit Margin** dalam persentase.
-            2.  **Evaluasi Strategi Marketing:**
-                * Analisis efektivitas strategi yang digunakan. Apakah strategi tersebut cocok untuk produk ini?
-                * Apakah ada potensi kanibalisasi profit karena strategi tertentu (misal diskon terlalu besar)?
-            3.  **Potensi & Rekomendasi:**
-                * Identifikasi 1-2 **peluang terbesar** untuk meningkatkan profitabilitas (misal: optimasi biaya, up-selling, penyesuaian harga).
-                * Berikan 2-3 **rekomendasi strategi marketing lanjutan** yang konkret dan bisa langsung dieksekusi.
-                * Apakah produk ini bermain di **Red Ocean** (kompetisi tinggi) atau **Blue Ocean** (kompetisi rendah)? Jelaskan alasannya.
-            Format jawaban dalam bentuk laporan ringkas menggunakan Markdown. Gunakan heading, bold, dan bullet points agar mudah dibaca.
+            Persona:
+            You are a brutally intelligent financial and marketing strategist AI... (Sisa prompt dengan karakter beringas ada di sini)
             `;
+
             try {
                 const genAI = new GoogleGenerativeAI(API_KEY);
                 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -205,11 +286,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (text) {
                     outputDiv.innerHTML = await marked.parse(text);
                 } else {
-                    outputDiv.innerHTML = `<p class="text-orange-500 font-bold">AI tidak memberikan respons. Coba lagi.</p>`;
+                    outputDiv.innerHTML = `<p class="text-orange-500 font-bold">AI tidak memberikan respons.</p>`;
                 }
             } catch (err) {
                 console.error("AI Analysis Failed:", err);
-                outputDiv.innerHTML = `<p class="text-red-500 font-bold">Gagal menghubungi AI. Periksa konsol browser untuk detail error dan pastikan API Key Anda valid.</p>`;
+                outputDiv.innerHTML = `<p class="text-red-500 font-bold">Gagal menghubungi AI. Periksa konsol dan API Key Anda.</p>`;
             } finally {
                 analyzeButton.disabled = false;
                 analyzeButton.classList.remove('opacity-50', 'cursor-not-allowed');
