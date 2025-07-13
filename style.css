@@ -1,7 +1,3 @@
-html, body {
-    overflow-x: hidden; /* Mencegah scroll horizontal & "goyang" */
-}
-
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f8f7f4;
@@ -71,36 +67,73 @@ body {
 }
 
 input[type="range"] {
-    -webkit-appearance: none; appearance: none;
-    width: 100%; height: 8px; background: #e0e0e0;
-    border-radius: 5px; outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 5px;
+    outline: none;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; appearance: none;
-    width: 20px; height: 20px; background: #007AFF;
-    cursor: pointer; border-radius: 50%;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #007AFF;
+    cursor: pointer;
+    border-radius: 50%;
 }
 
 #ai-analysis-output.prose {
-    max-width: none; color: #333; line-height: 1.6;
+    max-width: none;
+    color: #333;
+    line-height: 1.6;
 }
 
 #ai-analysis-output.prose h3 {
-    color: #007AFF; font-size: 1.25rem; margin-top: 1.5rem;
-    margin-bottom: 0.75rem; padding-bottom: 0.25rem;
+    color: #007AFF;
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.25rem;
     border-bottom: 1px solid #e0e0e0;
 }
 
-#ai-analysis-output.prose p { margin-bottom: 1rem; }
-#ai-analysis-output.prose ul, #ai-analysis-output.prose ol {
-    margin-left: 1.5rem; margin-bottom: 1rem;
+#ai-analysis-output.prose h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
 }
-#ai-analysis-output.prose li { margin-bottom: 0.5rem; }
-#ai-analysis-output.prose strong { color: #1d1d1f; font-weight: 600; }
 
-.content-section { display: none; }
-.content-section.active { display: block; }
+#ai-analysis-output.prose p {
+    margin-bottom: 1rem;
+}
+
+#ai-analysis-output.prose ul,
+#ai-analysis-output.prose ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#ai-analysis-output.prose li {
+    margin-bottom: 0.5rem;
+}
+
+#ai-analysis-output.prose strong {
+    color: #1d1d1f;
+    font-weight: 600;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
 
 header nav a.active {
     color: #007AFF;
