@@ -89,23 +89,44 @@ input[type="range"]::-webkit-slider-thumb {
 #ai-analysis-output.prose {
     max-width: none;
     color: #333;
+    line-height: 1.6;
 }
 
 #ai-analysis-output.prose h3 {
     color: #007AFF;
-    margin-bottom: 0.5em;
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-#ai-analysis-output.prose p, 
+#ai-analysis-output.prose h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+#ai-analysis-output.prose p {
+    margin-bottom: 1rem;
+}
+
+#ai-analysis-output.prose ul,
+#ai-analysis-output.prose ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
 #ai-analysis-output.prose li {
-    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
 }
 
 #ai-analysis-output.prose strong {
     color: #1d1d1f;
+    font-weight: 600;
 }
 
-/* Logika untuk menyembunyikan/menampilkan tab */
 .content-section {
     display: none;
 }
