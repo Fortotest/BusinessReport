@@ -4,34 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dasbor Interaktif: Lanskap E-Commerce Indonesia 2025</title>
-    <script type="importmap">{"imports": {"marked": "https://esm.sh/marked@^15.0.8", "@google/genai": "https://esm.sh/@google/generative-ai"}}</script>
+    
+    <script type="importmap">
+    {
+      "imports": {
+        "marked": "https://esm.sh/marked@^15.0.8",
+        "@google/genai": "https://esm.sh/@google/generative-ai"
+      }
+    }
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body class="antialiased">
     <header class="sticky top-0 z-50 sticky-header">
-        <div class="container mx-auto px-4 sm:px-6 py-3">
-            <div class="flex items-center justify-between">
-                <h1 class="text-lg sm:text-xl font-bold text-gray-800">Strategic Report 2025</h1>
-                <button id="menu-button" class="md:hidden p-2 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-800">Strategic Report 2025</h1>
+            <div id="nav-links" class="hidden md:flex items-center space-x-8 text-sm font-semibold text-gray-500">
+                <a href="#landscape" class="nav-link hover:text-black transition-colors active">Lanskap Pasar</a>
+                <a href="#lab" class="nav-link hover:text-black transition-colors">Laboratorium Strategi</a>
+                <a href="#ai-analyst" class="nav-link hover:text-black transition-colors">AI Analyst</a>
+                <a href="#projection" class="nav-link hover:text-black transition-colors">Proyeksi Hasil</a>
+                <a href="#action-plan" class="nav-link hover:text-black transition-colors">Rencana Aksi</a>
             </div>
-            <nav id="nav-links" class="hidden md:flex flex-col md:flex-row items-start md:items-center md:space-x-8 mt-4 md:mt-0 text-sm font-semibold text-gray-500">
-                <a href="#landscape" class="nav-link w-full md:w-auto py-2 md:py-0 hover:text-black transition-colors active">Lanskap Pasar</a>
-                <a href="#lab" class="nav-link w-full md:w-auto py-2 md:py-0 hover:text-black transition-colors">Laboratorium Strategi</a>
-                <a href="#ai-analyst" class="nav-link w-full md:w-auto py-2 md:py-0 hover:text-black transition-colors">AI Analyst</a>
-                <a href="#projection" class="nav-link w-full md:w-auto py-2 md:py-0 hover:text-black transition-colors">Proyeksi Hasil</a>
-                <a href="#action-plan" class="nav-link w-full md:w-auto py-2 md:py-0 hover:text-black transition-colors">Rencana Aksi</a>
-            </nav>
-        </div>
+        </nav>
     </header>
 
-    <main class="container mx-auto p-4 md:p-8 mt-4">
+    <main class="container mx-auto p-4 md:p-8 mt-8">
         <section id="landscape" class="content-section active space-y-16">
             <div class="text-center">
               <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4">Lanskap E-Commerce Indonesia 2025</h2>
@@ -41,23 +47,27 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <div class="lg:col-span-2 widget p-6 md:p-8">
                     <h4 class="text-xl font-bold mb-4 text-gray-900">Proyeksi Gross Merchandise Value (GMV) 2025</h4>
-                    <p class="text-sm text-gray-600 mb-4">Pasar e-commerce ritel Indonesia diproyeksikan mencapai antara <strong class="font-semibold text-gray-800">US$90 - $95 miliar</strong>.</p>
+                    <p class="text-sm text-gray-600 mb-4">Pasar e-commerce ritel Indonesia diproyeksikan mencapai antara <strong class="font-semibold text-gray-800">US$90 - $95 miliar</strong>. Grafik ini menunjukkan rentang proyeksi dari berbagai sumber, menggarisbawahi potensi pasar yang masif.</p>
                     <div class="chart-container h-64 md:h-80"><canvas id="gmvChart"></canvas></div>
                 </div>
                 <div class="widget p-6 md:p-8">
                      <h4 class="text-xl font-bold mb-4 text-gray-900">Profil Konsumen Digital</h4>
+                     <p class="text-sm text-gray-600 mb-6">Konsumen inti bersifat muda, melek digital, dan mengutamakan perangkat seluler.</p>
                      <div class="space-y-6">
                         <div>
                            <p class="font-semibold text-gray-700">Usia Dominan</p>
                            <p class="text-3xl font-bold accent-color">26-35 Tahun</p>
+                           <p class="text-xs text-gray-500">Mewakili 46% dari pasar</p>
                         </div>
                         <div>
                            <p class="font-semibold text-gray-700">Transaksi Seluler</p>
                            <p class="text-3xl font-bold accent-color">67% Volume</p>
+                           <p class="text-xs text-gray-500">Menegaskan strategi 'mobile-native'</p>
                         </div>
                          <div>
                            <p class="font-semibold text-gray-700">Pembayaran Utama</p>
-                           <p class="text-3xl font-bold accent-color">Dompet Digital</p>
+                           <p class="text-3xl font-bold accent-color">Dompet Digital (35%)</p>
+                           <p class="text-xs text-gray-500">Diikuti Transfer Bank (26%) & Kartu Kredit (13%)</p>
                         </div>
                      </div>
                 </div>
@@ -66,19 +76,21 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                  <div class="widget p-6 md:p-8">
                     <h4 class="text-xl font-bold text-center mb-4 text-gray-900">Pangsa Pasar GMV (Estimasi 2025)</h4>
+                     <p class="text-sm text-center text-gray-600 mb-4">Pasar terkonsolidasi menjadi duopoli, di mana entitas gabungan <strong class="font-semibold">TikTok-Tokopedia</strong> kini bersaing sangat ketat dengan <strong class="font-semibold">Shopee</strong> sebagai pemimpin pasar.</p>
                     <div class="chart-container"><canvas id="marketShareChart"></canvas></div>
                 </div>
                 <div class="widget p-6 md:p-8">
                     <h4 class="text-xl font-bold mb-4 text-gray-900">Dua Jalur Strategis Menuju Sukses</h4>
+                    <p class="text-sm text-gray-600 mb-6">Pasar terbelah menjadi dua arena. Pilih di mana Anda akan bertempur berdasarkan kapabilitas unik Anda.</p>
                     <div class="space-y-6">
                         <div class="bg-gray-100 p-6 rounded-xl">
                             <h5 class="font-bold text-lg accent-color">Jalur A: Volume</h5>
-                            <p class="text-sm text-gray-700">Bersaing di pasar massal. Membutuhkan adopsi tren cepat dan penguasaan live commerce.</p>
+                            <p class="text-sm text-gray-700">Bersaing di pasar massal yang sensitif harga. Membutuhkan adopsi tren cepat dan penguasaan live commerce.</p>
                             <p class="mt-2 font-semibold text-gray-800">Platform Kunci: TikTok-Tokopedia, Shopee</p>
                         </div>
                         <div class="bg-gray-100 p-6 rounded-xl">
                             <h5 class="font-bold text-lg text-green-600">Jalur B: Nilai</h5>
-                            <p class="text-sm text-gray-700">Bersaing di ruang premium yang fokus pada kepercayaan dan layanan.</p>
+                            <p class="text-sm text-gray-700">Bersaing di ruang premium yang fokus pada kepercayaan, keaslian, dan layanan pelanggan superior.</p>
                              <p class="mt-2 font-semibold text-gray-800">Platform Kunci: Lazada (LazMall), Blibli</p>
                         </div>
                     </div>
@@ -88,7 +100,7 @@
 
         <section id="lab" class="content-section space-y-16">
             <h3 class="text-3xl font-bold text-center text-gray-800">Laboratorium Strategi</h3>
-            <p class="text-center text-gray-600 max-w-3xl mx-auto">Gunakan instrumen ini untuk menyimulasikan skenario dan mempertajam rencana bisnis Anda.</p>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto">Data adalah titik awal. Gunakan instrumen presisi ini untuk menyimulasikan skenario, memvalidasi asumsi, dan mempertajam rencana bisnis Anda.</p>
             <div class="widget p-8 md:p-10">
                 <h4 class="text-2xl font-bold text-center mb-10 text-gray-900">Suite Instrumen Analisis</h4>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -131,7 +143,7 @@
                                 <div><label class="text-sm font-medium">Agilitas Produksi (1-10)</label><input type="range" id="agilityScore" min="1" max="10" value="5" class="mt-1"></div>
                                 <div><label class="text-sm font-medium">Keahlian Pemasaran Digital (1-10)</label><input type="range" id="marketingScore" min="1" max="10" value="5" class="mt-1"></div>
                             </div>
-                            <div class="mt-6 text-center"><span class="font-semibold">Skor Peluang: </span><span id="opportunityResult" class="font-bold text-3xl accent-color">50</span></div>
+                            <div class="mt-6 text-center"><span class="font-semibold">Skor Peluang Anda: </span><span id="opportunityResult" class="font-bold text-3xl accent-color">50/100</span></div>
                         </div>
                         <div class="bg-gray-100 p-6 rounded-xl">
                             <h5 class="font-semibold mb-4 text-center">6. Kalkulator Customer Lifetime Value (LTV)</h5>
@@ -153,6 +165,7 @@
                     </div>
                     <div class="bg-gray-100 p-6 rounded-xl">
                         <h5 class="font-semibold mb-4 text-center">8. Analisis Sentimen Konsumen (Simulasi)</h5>
+                        <p class="text-center text-xs text-gray-500 mb-4">Simulasi sentimen untuk kategori produk "Skincare Lokal".</p>
                         <div class="chart-container h-56 md:h-64"><canvas id="sentimentChart"></canvas></div>
                     </div>
                     <div class="lg:col-span-2 bg-gray-100 p-6 rounded-xl">
@@ -161,7 +174,7 @@
                             <div class="md:col-span-2 chart-container h-80"><canvas id="competitorMap"></canvas></div>
                             <div id="competitorInfo" class="p-4 bg-white rounded-lg">
                                 <h6 class="font-bold">Klik titik untuk info</h6>
-                                <p class="text-sm text-gray-600">Peta ini memvisualisasikan posisi brand.</p>
+                                <p class="text-sm text-gray-600">Peta ini memvisualisasikan posisi brand berdasarkan harga vs. persepsi kualitas/inovasi.</p>
                             </div>
                         </div>
                     </div>
@@ -188,25 +201,25 @@
 
         <section id="ai-analyst" class="content-section space-y-16">
             <h3 class="text-3xl font-bold text-center text-gray-800">AI Marketplace Analyst</h3>
-            <p class="text-center text-gray-600 max-w-3xl mx-auto">Masukkan data produk spesifik di bawah. AI akan menganalisisnya dengan mengacu pada semua data di dasbor ini.</p>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto">Masukkan data produk dari kompetitor atau bisnis Anda. AI akan menganalisis profitabilitas, strategi, dan potensi pasarnya secara mendalam.</p>
             <div class="widget p-8 md:p-10">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                     <div class="space-y-4">
-                        <h4 class="text-xl font-bold text-gray-900">Data Produk Spesifik</h4>
-                        <div><label class="font-medium text-gray-700 text-sm">Nama Produk</label><input type="text" id="ai-nama-produk" class="ai-input mt-1" placeholder="cth: Minyak Zaitun 250ml"></div>
+                        <h4 class="text-xl font-bold text-gray-900">Data Produk</h4>
+                        <div><label class="font-medium text-gray-700 text-sm">Nama Produk</label><input type="text" id="ai-nama-produk" class="ai-input mt-1" placeholder="cth: Minyak Zaitun Extra Virgin 250ml"></div>
                         <div><label class="font-medium text-gray-700 text-sm">Harga Jual (Rp)</label><input type="text" inputmode="numeric" id="ai-harga-jual" class="ai-input mt-1" placeholder="cth: 39.000"></div>
                         <div><label class="font-medium text-gray-700 text-sm">Jumlah Terjual / Bulan (Unit)</label><input type="number" id="ai-terjual-bulanan" class="ai-input mt-1" placeholder="cth: 1200"></div>
-                        <div><label class="font-medium text-gray-700 text-sm">HPP / Unit (Rp)</label><input type="text" inputmode="numeric" id="ai-hpp" class="ai-input mt-1" placeholder="cth: 22.000"></div>
-                        <div><label class="font-medium text-gray-700 text-sm">Biaya Lain / Unit (Rp)</label><input type="text" inputmode="numeric" id="ai-biaya-lain" class="ai-input mt-1" placeholder="cth: 3.500"></div>
-                        <div><label class="font-medium text-gray-700 text-sm">Strategi Marketing Digunakan</label><textarea id="ai-strategi" class="ai-input mt-1" rows="3" placeholder="cth: Flash Sale, Bundling, Free Ongkir, Iklan TikTok"></textarea></div>
-                        <button id="analyze-button" class="w-full mt-6 px-6 py-3 text-lg font-bold accent-bg text-white rounded-xl hover:opacity-90 transition-opacity">
+                        <div><label class="font-medium text-gray-700 text-sm">Biaya Produksi / Unit (HPP) (Rp)</label><input type="text" inputmode="numeric" id="ai-hpp" class="ai-input mt-1" placeholder="cth: 22.000"></div>
+                        <div><label class="font-medium text-gray-700 text-sm">Biaya Lain / Unit (Logistik, Admin, dll) (Rp)</label><input type="text" inputmode="numeric" id="ai-biaya-lain" class="ai-input mt-1" placeholder="cth: 3.500"></div>
+                        <div><label class="font-medium text-gray-700 text-sm">Strategi Marketing yang Digunakan</label><textarea id="ai-strategi" class="ai-input mt-1" rows="3" placeholder="cth: Flash Sale mingguan, Bundling produk, Free Ongkir, Iklan TikTok"></textarea></div>
+                        <button id="analyze-button" class="w-full mt-6 px-6 py-3 text-lg font-bold accent-bg text-white rounded-xl hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                             ⚡ Analisis dengan AI
                         </button>
                     </div>
                     <div class="bg-gray-100 p-6 rounded-xl">
-                        <h4 class="text-xl font-bold text-gray-900 mb-4">Laporan Analisis AI Terintegrasi</h4>
+                        <h4 class="text-xl font-bold text-gray-900 mb-4">Laporan Analisis AI</h4>
                         <div id="ai-analysis-output" class="prose">
-                            <p class="text-gray-500">Hasil analisis akan muncul di sini.</p>
+                            <p class="text-gray-500">Hasil analisis akan muncul di sini. Masukkan data di sebelah kiri dan klik tombol analisis.</p>
                         </div>
                     </div>
                 </div>
@@ -215,7 +228,7 @@
 
         <section id="projection" class="content-section space-y-16">
             <h3 class="text-3xl font-bold text-center text-gray-800">Simulasi Dampak Strategis</h3>
-            <p class="text-center text-gray-600 max-w-3xl mx-auto">Berdasarkan input dari Laboratorium Strategi, ini adalah proyeksi hasil akhir jika rencana dieksekusi.</p>
+            <p class="text-center text-gray-600 max-w-3xl mx-auto">Berdasarkan input dari Laboratorium Strategi, ini adalah proyeksi hasil akhir jika semua rencana dieksekusi dengan baik.</p>
             <div class="widget p-8 md:p-12">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                     <div class="bg-gray-100 p-6 rounded-xl">
@@ -233,7 +246,7 @@
                 </div>
                 <div class="mt-10 border-t border-gray-200 pt-8">
                     <h4 class="font-bold text-xl text-center text-gray-900 mb-4">Vonis Strategis</h4>
-                    <p id="strategicVerdict" class="text-center text-gray-700 bg-gray-100 p-6 rounded-xl">Masukkan data di Laboratorium Strategi untuk melihat analisis akhir.</p>
+                    <p id="strategicVerdict" class="text-center text-gray-700 bg-gray-100 p-6 rounded-xl">Masukkan data di Laboratorium Strategi untuk melihat analisis akhir. Rencana Anda akan dievaluasi di sini berdasarkan potensi profitabilitas, skalabilitas, dan efisiensi pemasaran.</p>
                 </div>
             </div>
         </section>
@@ -242,17 +255,18 @@
             <h3 class="text-3xl font-bold text-center text-gray-800">Rencana Aksi Strategis</h3>
             <div class="widget p-8 md:p-10 space-y-8">
                 <div><h4 class="font-bold text-xl accent-color">1. Pilih Medan Perang (Platform)</h4><p class="text-gray-600">Selaraskan produk dengan ekosistem yang tepat. Gunakan TikTok/Shopee untuk volume & tren. Gunakan Lazada/Blibli untuk produk AOV tinggi & berbasis kepercayaan.</p></div>
-                <div class="border-t border-gray-200 pt-8"><h4 class="font-bold text-xl accent-color">2. Kuasai Video Commerce</h4><p class="text-gray-600">Alokasikan sumber daya untuk live streaming (terutama jam 18:00-21:00) dan video pendek yang otentik. Ini adalah pendorong konversi utama.</p></div>
-                <div class="border-t border-gray-200 pt-8"><h4 class="font-bold text-xl accent-color">3. Bersaing pada Nilai, Bukan Harga</h4><p class="text-gray-600">Manfaatkan festival belanja, tawarkan bundling produk, dan integrasikan opsi BNPL. Bangun kepercayaan melalui garansi dan ulasan positif.</p></div>
+                <div class="border-t border-gray-200 pt-8"><h4 class="font-bold text-xl accent-color">2. Kuasai Video Commerce</h4><p class="text-gray-600">Alokasikan sumber daya untuk live streaming (terutama jam 18:00-21:00) dan video pendek yang otentik. Ini adalah pendorong konversi utama (terbukti menaikkan penjualan hingga 7x lipat).</p></div>
+                <div class="border-t border-gray-200 pt-8"><h4 class="font-bold text-xl accent-color">3. Bersaing pada Nilai, Bukan Harga</h4><p class="text-gray-600">Manfaatkan festival belanja, tawarkan bundling produk, dan integrasikan opsi BNPL untuk menarik "Si Optimis yang Berhati-hati". Bangun kepercayaan melalui garansi dan ulasan positif.</p></div>
             </div>
         </section>
     </main>
     
     <footer class="text-center mt-20 py-10 border-t border-gray-200">
         <p class="text-sm text-gray-500">Laporan ini disusun berdasarkan analisis dan proyeksi dari data publik. Gunakan sebagai alat bantu strategis.</p>
-        <p class="text-xs text-gray-400 mt-2">© 2025 Market Intelligence rizkyfadil.</p>
+        <p class="text-xs text-gray-400 mt-2">&copy; 2025 Market Intelligence rizkyfadil.</p>
     </footer>
 
     <script type="module" src="script.js"></script>
+
 </body>
 </html>
