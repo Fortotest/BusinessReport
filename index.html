@@ -47,7 +47,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
                 <div class="lg:col-span-2 widget p-6 md:p-8">
                     <h4 class="text-xl font-bold mb-4 text-gray-900">Proyeksi Gross Merchandise Value (GMV) 2025</h4>
-                    <p class="text-sm text-gray-600 mb-4">Pasar e-commerce ritel Indonesia diproyeksikan mencapai antara <strong>US$90 - $95 miliar</strong>. Grafik ini menunjukkan rentang proyeksi dari berbagai sumber, menggarisbawahi potensi pasar yang masif.</p>
+                    <p class="text-sm text-gray-600 mb-4">Pasar e-commerce ritel Indonesia diproyeksikan mencapai antara <strong class="font-semibold text-gray-800">US$90 - $95 miliar</strong>. Grafik ini menunjukkan rentang proyeksi dari berbagai sumber, menggarisbawahi potensi pasar yang masif.</p>
                     <div class="chart-container h-64 md:h-80"><canvas id="gmvChart"></canvas></div>
                 </div>
                 <div class="widget p-6 md:p-8">
@@ -76,7 +76,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                  <div class="widget p-6 md:p-8">
                     <h4 class="text-xl font-bold text-center mb-4 text-gray-900">Pangsa Pasar GMV (Estimasi 2025)</h4>
-                     <p class="text-sm text-center text-gray-600 mb-4">Pasar terkonsolidasi menjadi duopoli, di mana entitas gabungan **TikTok-Tokopedia** kini bersaing sangat ketat dengan **Shopee** sebagai pemimpin pasar.</p>
+                     <p class="text-sm text-center text-gray-600 mb-4">Pasar terkonsolidasi menjadi duopoli, di mana entitas gabungan <strong class="font-semibold">TikTok-Tokopedia</strong> kini bersaing sangat ketat dengan <strong class="font-semibold">Shopee</strong> sebagai pemimpin pasar.</p>
                     <div class="chart-container"><canvas id="marketShareChart"></canvas></div>
                 </div>
                 <div class="widget p-6 md:p-8">
@@ -107,9 +107,9 @@
                     <div class="space-y-10">
                         <div class="bg-gray-100 p-6 rounded-xl">
                             <h5 class="font-semibold mb-4 text-center">1. Kalkulator Profitabilitas</h5>
-                            <div><label class="font-medium text-gray-700 text-sm">Harga Jual</label><input type="number" id="hargaJual" class="calculator-input mt-1" placeholder="150000"></div>
-                            <div class="mt-4"><label class="font-medium text-gray-700 text-sm">HPP</label><input type="number" id="hpp" class="calculator-input mt-1" placeholder="60000"></div>
-                            <div class="mt-4"><label class="font-medium text-gray-700 text-sm">Biaya Iklan (CAC)</label><input type="number" id="biayaIklan" class="calculator-input mt-1" placeholder="15000"></div>
+                            <div><label class="font-medium text-gray-700 text-sm">Harga Jual</label><input type="text" inputmode="numeric" id="hargaJual" class="calculator-input mt-1" placeholder="150.000"></div>
+                            <div class="mt-4"><label class="font-medium text-gray-700 text-sm">HPP</label><input type="text" inputmode="numeric" id="hpp" class="calculator-input mt-1" placeholder="60.000"></div>
+                            <div class="mt-4"><label class="font-medium text-gray-700 text-sm">Biaya Iklan (CAC)</label><input type="text" inputmode="numeric" id="biayaIklan" class="calculator-input mt-1" placeholder="15.000"></div>
                             <div class="mt-4"><label class="font-medium text-gray-700 text-sm">Biaya Lain (%)</label><input type="number" id="biayaPlatform" class="calculator-input mt-1" placeholder="5"></div>
                             <div class="mt-6 flex justify-between items-center border-t pt-4">
                                 <span class="font-semibold text-gray-600">Net Profit Margin:</span>
@@ -118,7 +118,7 @@
                         </div>
                         <div class="bg-gray-100 p-6 rounded-xl">
                             <h5 class="font-semibold mb-4 text-center">2. Kalkulator Break-Even Point (BEP)</h5>
-                            <div><label class="font-medium text-gray-700 text-sm">Total Biaya Tetap / Bulan</label><input type="number" id="fixedCosts" class="calculator-input mt-1" placeholder="5000000"></div>
+                            <div><label class="font-medium text-gray-700 text-sm">Total Biaya Tetap / Bulan</label><input type="text" inputmode="numeric" id="fixedCosts" class="calculator-input mt-1" placeholder="5.000.000"></div>
                             <div id="bepResult" class="mt-6 text-center font-semibold">Anda perlu menjual <span class="text-2xl accent-color">0</span> unit/bulan untuk BEP.</div>
                         </div>
                         <div class="bg-gray-100 p-6 rounded-xl">
@@ -147,7 +147,7 @@
                         </div>
                         <div class="bg-gray-100 p-6 rounded-xl">
                             <h5 class="font-semibold mb-4 text-center">6. Kalkulator Customer Lifetime Value (LTV)</h5>
-                            <div><label class="font-medium text-gray-700 text-sm">Nilai Pembelian Rata-rata</label><input type="number" id="avgPurchaseValue" class="calculator-input mt-1" placeholder="150000"></div>
+                            <div><label class="font-medium text-gray-700 text-sm">Nilai Pembelian Rata-rata</label><input type="text" inputmode="numeric" id="avgPurchaseValue" class="calculator-input mt-1" placeholder="150.000"></div>
                             <div class="mt-4"><label class="font-medium text-gray-700 text-sm">Frekuensi Pembelian / Tahun</label><input type="number" id="purchaseFrequency" class="calculator-input mt-1" placeholder="4"></div>
                             <div class="mt-4"><label class="font-medium text-gray-700 text-sm">Masa Hidup Pelanggan (Tahun)</label><input type="number" id="customerLifespan" class="calculator-input mt-1" placeholder="3"></div>
                             <div id="ltvResult" class="mt-6 text-center font-semibold">Estimasi LTV per Pelanggan: <br><span class="text-2xl accent-color">Rp 0</span></div>
@@ -160,7 +160,7 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                      <div class="bg-gray-100 p-6 rounded-xl">
                         <h5 class="font-semibold mb-4 text-center">7. Alokator Bujet Pemasaran</h5>
-                        <input type="number" id="marketingBudget" class="calculator-input mx-auto block max-w-xs text-center mb-6" placeholder="Bujet Bulanan, cth: 10000000">
+                        <input type="text" inputmode="numeric" id="marketingBudget" class="calculator-input mx-auto block max-w-xs text-center mb-6" placeholder="10.000.000">
                         <div class="chart-container h-56 md:h-64"><canvas id="budgetChart"></canvas></div>
                     </div>
                     <div class="bg-gray-100 p-6 rounded-xl">
@@ -207,10 +207,10 @@
                     <div class="space-y-4">
                         <h4 class="text-xl font-bold text-gray-900">Data Produk</h4>
                         <div><label class="font-medium text-gray-700 text-sm">Nama Produk</label><input type="text" id="ai-nama-produk" class="ai-input mt-1" placeholder="cth: Minyak Zaitun Extra Virgin 250ml"></div>
-                        <div><label class="font-medium text-gray-700 text-sm">Harga Jual (Rp)</label><input type="number" id="ai-harga-jual" class="ai-input mt-1" placeholder="cth: 39000"></div>
+                        <div><label class="font-medium text-gray-700 text-sm">Harga Jual (Rp)</label><input type="text" inputmode="numeric" id="ai-harga-jual" class="ai-input mt-1" placeholder="cth: 39.000"></div>
                         <div><label class="font-medium text-gray-700 text-sm">Jumlah Terjual / Bulan (Unit)</label><input type="number" id="ai-terjual-bulanan" class="ai-input mt-1" placeholder="cth: 1200"></div>
-                        <div><label class="font-medium text-gray-700 text-sm">Biaya Produksi / Unit (HPP) (Rp)</label><input type="number" id="ai-hpp" class="ai-input mt-1" placeholder="cth: 22000"></div>
-                        <div><label class="font-medium text-gray-700 text-sm">Biaya Lain / Unit (Logistik, Admin, dll) (Rp)</label><input type="number" id="ai-biaya-lain" class="ai-input mt-1" placeholder="cth: 3500"></div>
+                        <div><label class="font-medium text-gray-700 text-sm">Biaya Produksi / Unit (HPP) (Rp)</label><input type="text" inputmode="numeric" id="ai-hpp" class="ai-input mt-1" placeholder="cth: 22.000"></div>
+                        <div><label class="font-medium text-gray-700 text-sm">Biaya Lain / Unit (Logistik, Admin, dll) (Rp)</label><input type="text" inputmode="numeric" id="ai-biaya-lain" class="ai-input mt-1" placeholder="cth: 3.500"></div>
                         <div><label class="font-medium text-gray-700 text-sm">Strategi Marketing yang Digunakan</label><textarea id="ai-strategi" class="ai-input mt-1" rows="3" placeholder="cth: Flash Sale mingguan, Bundling produk, Free Ongkir, Iklan TikTok"></textarea></div>
                         <button id="analyze-button" class="w-full mt-6 px-6 py-3 text-lg font-bold accent-bg text-white rounded-xl hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                             ⚡ Analisis dengan AI
@@ -263,7 +263,7 @@
     
     <footer class="text-center mt-20 py-10 border-t border-gray-200">
         <p class="text-sm text-gray-500">Laporan ini disusun berdasarkan analisis dan proyeksi dari data publik. Gunakan sebagai alat bantu strategis.</p>
-        <p class="text-xs text-gray-400 mt-2">&copy; 2025 Market Intelligence Division.</p>
+        <p class="text-xs text-gray-400 mt-2">&copy; 2025 Market Intelligence rizkyfadil.</p>
     </footer>
 
     <script type="module" src="script.js"></script>
